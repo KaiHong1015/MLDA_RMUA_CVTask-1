@@ -3,3 +3,4 @@ weight/resnet50_fold0_BestModel.pth filter=lfs diff=lfs merge=lfs -text
 resnet50_fold0_BestModel.pth filter=lfs diff=lfs merge=lfs -text
 *.psd filter=lfs diff=lfs merge=lfs -text
 *.pth filter=lfs diff=lfs merge=lfs -text
+*.xml filter=lfs diff=lfs merge=lfs -text
