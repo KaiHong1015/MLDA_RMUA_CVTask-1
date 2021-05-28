@@ -1,9 +1,0 @@
-Physics for Scientists and Engineers
-Pg -> 	1123
-Ques -> 77
-
-Physics for Scientists and Engineers Solution Manual
-Pg -> 	1860
-
-Django for Beginners
-Pg -> 	201	
