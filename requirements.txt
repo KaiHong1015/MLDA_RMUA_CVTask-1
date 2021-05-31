@@ -1,0 +1,9 @@
+torch
+torchvision
+albumentations
+ensemble-boxes
+numpy
+matplotlib
+pandas
+Pillow
+opencv-python
