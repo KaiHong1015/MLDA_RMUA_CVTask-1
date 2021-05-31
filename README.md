@@ -1,9 +1,19 @@
 # MLDA_RMUA_CVTask
+<p>Object detection is a computer technology related to computer vision and image processing that deals with detecting instances of semantic objects of a certain class (such as humans, buildings, or cars) in digital images and videos.</p>
 
+<p>Repository contains Python implemented object detection with depth recognition notebooks, weights, result videos, and training logs in csv</p>
 
-https://user-images.githubusercontent.com/84235717/120098613-81e61b00-c169-11eb-8fa8-0aa306a535c5.mp4 
+## Installation
+```bash
+pip install -r requirements.txt
+```
 
-## After applying self implemented box selection function
-https://user-images.githubusercontent.com/84235717/120098626-932f2780-c169-11eb-808f-f794456d291b.mp4
+<h2 align="center">
+  Example
+</h2>
+
+Before            |  After
+:-------------------------:|:-------------------------:
+![](https://user-images.githubusercontent.com/84235717/120179045-b37be680-c23c-11eb-8909-ca317ed4c6a6.gif)  |  ![](https://user-images.githubusercontent.com/84235717/120179231-e0c89480-c23c-11eb-90be-b42a351b1e5c.gif)
 
 
