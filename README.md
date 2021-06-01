@@ -30,7 +30,7 @@ model = get_model(weight_path='weight/fold1_resnet50_fpn_BestModel.pth') ## Your
 Since the image data given is not labeled yet, thus before training, image labeling is needed. All of the images are labeled and divided into 4 classes `Ally Robot, Ally Armor, Enemy Robot, Enemy Armor`. All the labeled data are first save as `.xml` in `Pascal VOC` format, and later transformed into a dataframe `bbox_df.csv`. The transformation work is done in the `xml_to_csv.ipynb` notebook.
 
 ## Training
-In this repository, Faster R-CNN model with a pre-trained ResNet-50-FPN backbone on COCO train2017 dataset is implemented in Pytorch. Faster R-CNN was evolved from R-CNN and Fast R-CNN. The main difference between Fast R-CNN and Faster R-CNN is that the traditional Selective Search Algorithm is replaced by Regional Proposal Network which allowed faster computation on propose region. 
+In this repository, Faster R-CNN model with a pre-trained ResNet-50-FPN backbone is implemented in Pytorch. Faster R-CNN was evolved from R-CNN and Fast R-CNN. The main difference between Fast R-CNN and Faster R-CNN is that the traditional Selective Search Algorithm is replaced by Regional Proposal Network which allowed faster computation on propose region. 
 
 Before starting training our model, the library `albumentations` is used to augment our images dataset as it provide greater and powerful augmentation choices. Below shows some examples on what augmentation had been done.
 
