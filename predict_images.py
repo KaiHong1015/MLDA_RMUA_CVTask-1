@@ -1,8 +1,8 @@
 from utils import *
 from dataset import *
 
-images_root = 'data\\Ally\\right' ## Your Images Root Directory
-depthmaps_root = 'data\\Ally\\depthmap' ## Your DepthMap Root Directory, and must be in the same order as the images
+images_root = 'data/Ally/right' ## Your Images Root Directory
+depthmaps_root = 'data/Ally/depthmap' ## Your DepthMap Root Directory, and must be in the same order as the images
 isleft = False ## Is it doing on left camera data?
 
 model = get_model(weight_path='weight\\fold1_resnet50_fpn_BestModel.pth') ## Your weight path
