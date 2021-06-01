@@ -32,7 +32,7 @@ Since the image data given is not labeled yet, thus before training, image label
 ## Training
 In this repository, Faster R-CNN model with a pre-trained ResNet-50-FPN backbone is implemented in Pytorch. Faster R-CNN was evolved from R-CNN and Fast R-CNN. The main difference between Fast R-CNN and Faster R-CNN is that the traditional Selective Search Algorithm is replaced by Regional Proposal Network which allowed faster computation on propose region. 
 
-Before starting training our model, the library `albumentations` is used to augment our images dataset as it provide greater and powerful augmentation choices. Below shows some examples on what augmentation had been done.
+Before starting training our model, the library `albumentations` is used to augment our images dataset as it provide greater and powerful augmentation choices. Below shows some examples of augmented images.
 
 <div align="center"><img src=https://user-images.githubusercontent.com/84235717/120287200-a10fb480-c2f1-11eb-9efb-db89d04559a8.png height="15%" width="70%"></div>
 
