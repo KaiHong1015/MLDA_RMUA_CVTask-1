@@ -1,13 +1,31 @@
 # MLDA_RMUA_CVTask
 <p>Repository contains Python implemented object detection with depth recognition training and inference notebooks, weights, result videos, and training logs.</p>
 
-## Usage
-pass
-
 ## Installation
 ```bash
 pip install -r requirements.txt
 ```
+## Usage
+#### Pre-saved Result Videos
+* I had prepared the inference videos inside the `result_videos` folder by doing prediction on every single frame and stacking together to form a video. `Inference_Video_Generator.ipynb` notebook shows the work I done for it. Frames were extracted from all RGB videos and saved inside `video_frames_images` folder.
+
+#### Inference on Images
+* I had prepared an example on how to do inference on image data inside `predict_images.py`. Below are the variables that needed to be specified.
+```python
+images_root = 'data/Ally/right' ## Your Images Root Directory
+depthmaps_root = 'data/Ally/depthmap' ## Your DepthMap Root Directory, and must be in the same order as the images
+isleft = False ## Is it doing on left camera data?
+model = get_model(weight_path='weight\\fold1_resnet50_fpn_BestModel.pth') ## Your weight path
+```
+#### Real Time direct inference on video
+* Inside `realtime_inference.py` shows an example on how to do inference directly on video. But this required better GPU to run on it or else you will end up with a low FPS performance. Below are the variables that needed to be specified. 
+```python
+cap = cv2.VideoCapture('data/Ally/left/left_cam.avi') ## Your Video Path
+dms = np.load('video_frames_images/ally_depth_mm.npy') ## Your Related Video DepthMap Path in .npy format
+isleft = True ## Is it doing on left camera data?
+model = get_model(weight_path='weight/fold1_resnet50_fpn_BestModel.pth') ## Your weight path
+```
+
 ## Label Image Dataset
 Since the image data given is not labeled yet, thus before training, image labeling is needed. All of the images are labeled and divided into 4 classes `Ally Robot, Ally Armor, Enemy Robot, Enemy Armor`. All the labeled data are first save as `.xml` in `Pascal VOC` format, and later transformed into a dataframe `bbox_df.csv`. The transformation work is done in the `xml_to_csv.ipynb` notebook.
 
