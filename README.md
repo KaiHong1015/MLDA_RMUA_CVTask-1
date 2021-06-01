@@ -1,5 +1,5 @@
 # MLDA_RMUA_CVTask
-<p>Repository contains Python implemented object detection with depth recognition training and inference notebooks, weights, result videos, and training logs.</p>
+<p>Repository contains Python implemented object detection with depth recognition training and inference notebooks, weight, result videos, and learning log.</p>
 
 ## Installation
 ```bash
@@ -15,7 +15,7 @@ pip install -r requirements.txt
 images_root = 'data/Ally/right' ## Your Images Root Directory
 depthmaps_root = 'data/Ally/depthmap' ## Your DepthMap Root Directory, and must be in the same order as the images
 isleft = False ## Is it doing on left camera data?
-model = get_model(weight_path='weight\\fold1_resnet50_fpn_BestModel.pth') ## Your weight path
+model = get_model(weight_path='weight/fold1_resnet50_fpn_BestModel.pth') ## Your weight path
 ```
 #### Real Time direct inference on video
 * Inside `realtime_inference.py` shows an example on how to do inference directly on video. But this required better GPU to run on it or else you will end up with a low FPS performance. Below are the variables that needed to be specified. 
