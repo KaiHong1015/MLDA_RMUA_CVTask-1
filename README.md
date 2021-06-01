@@ -3,7 +3,7 @@
 
 ## Installation
 ```bash
-pip install -U -r requirements.txt
+pip install -r requirements.txt
 ```
 ## Usage
 #### Pre-saved Result Videos
