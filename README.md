@@ -38,7 +38,7 @@ Before starting training our model, the library `albumentations` is used to augm
 
 For better training and validation purpose, stratifiedkfold with 6 folds is used to split our data with same percentage on each class. As there are 6 folds, which means there will result in 6 difference weights on each fold, but we only provide the best weight (fold 1) in this repository. You can also find the learning curve and learning result for each epoch of fold 1 weight in `learning_logs` folder.
 
-In training loop, `Averager()` is used to calculate the average loss of our model as the model will return a dictionary with 4 difference losses. The averaged validation loss was tracked and the epoch with lower averaged validation loss, its weight will be saved. As pre-trained model was used, the losses started to converged at around epoch 10, and each training fold taked 5-10 minutes with CUDA. Below are the parameters that I used for this repository.
+In training loop, `Averager()` is used to calculate the average loss of our model as the model will return a dictionary with 4 difference losses. The averaged validation loss was tracked and the epoch with the lowest averaged validation loss, its weight will be saved. As pre-trained model was used, the losses started to converged at around epoch 10, and each training fold taked 5-10 minutes with CUDA. Below are the parameters that I used for this repository.
 ```bash
 lr = 1e-5
 epochs = 20
