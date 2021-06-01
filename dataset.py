@@ -45,21 +45,22 @@ class TestDataset(Dataset):
     depthmap: numpy -> The depthmap of the image returned
     isleft: bool -> Is it the left camera data?
     '''
-    def __init__(self, image_root, depthmaps_path, isleft: bool, transform=transform['test']):
-        self.image_root = image_root
+    def __init__(self, images_root, depthmaps_root, transform=transform['test']):
+        self.images_root = images_root
+        self.depthmaps_root = depthmaps_root
         self.transform = transform
-        self.image_paths = glob.glob(os.path.join(image_root, '*'))
-        self.depthmaps = np.load(depthmaps_path)
-        self.isleft = isleft
+        self.image_paths = glob.glob(os.path.join(images_root, '*'))
+        self.dm_paths = glob.glob(os.path.join(depthmaps_root, '*'))
         
     def __getitem__(self, index):
         image_path = self.image_paths[index]
         image = Image.open(image_path).convert('RGB')
         image = np.array(image).astype(np.float32) / 255.0
         
+        dm = np.load(self.dm_paths[index])
         tsfm = self.transform(**{'image':image})
 
-        return tsfm['image'], self.depthmaps[index], self.isleft
+        return tsfm['image'], dm
     
     def __len__(self):
         return len(self.image_paths)

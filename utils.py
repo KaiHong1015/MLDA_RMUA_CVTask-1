@@ -2,8 +2,9 @@ import gc
 import torch
 import numpy as np 
 import cv2
-
 import torchvision
+
+from ensemble_boxes import *
 from torchvision.models.detection.faster_rcnn import FastRCNNPredictor
 
 device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
@@ -30,7 +31,8 @@ def get_model(weight_path):
     weight = torch.load(weight_path, map_location=device)
     model.load_state_dict(weight)
     model = model.to(device)
-
+    model.eval()
+    
     del weight
     gc.collect()
     return model
@@ -55,13 +57,13 @@ def get_distance(box, label, dm, isleft):
         else:
             c = round(175/45 * (box[3]-box[1]))
         
-    xmid = round(box[0] + (box[2] - box[0])/2) + c
-    ymid = round(box[1] + (box[3] - box[1])/2)
+    xmid = int(round(box[0] + (box[2] - box[0])/2 + c))
+    ymid = int(round(box[1] + (box[3] - box[1])/2))
     
     d = dm[ymid-10:ymid, xmid:xmid+17][dm[ymid-10:ymid, xmid:xmid+17]!=0]
     return 0.0 if not len(d) else d.mean()
 
-def draw_info(np_image, dm, boxes, labels, isleft):
+def draw_info(np_image, dm, boxes, labels, isleft, fps=None):
     '''
     Draw predicted bounding box and distance on the image
     
@@ -85,9 +87,12 @@ def draw_info(np_image, dm, boxes, labels, isleft):
         cv2.rectangle(np_image, (box[0], box[1]), (box[2], box[3]), color, 3)
         cv2.rectangle(np_image, (box[0], box[1] - 30), (box[0] + round(len(text)/19 * 230), box[1]), color, -1)
         cv2.putText(np_image, text, (box[0], box[1] - 5), cv2.FONT_HERSHEY_PLAIN, 1.25, (0,0,0), 2)
+    if fps:
+        cv2.putText(np_image, f'FPS: {fps:.2f}', (10,30), cv2.FONT_HERSHEY_PLAIN, 2, (225,0,0), 2)
+    np_image = cv2.cvtColor(np_image, cv2.COLOR_BGR2RGB)
     return np_image
 
-def get_valid_prediction(boxes: np.ndarray, scores: np.ndarray, labels: np.ndarray, threshold=0.75):
+def get_valid_prediction(boxes: np.ndarray, scores: np.ndarray, labels: np.ndarray):
     '''
     Get predictions which satisfied the conditions. We will choose the boxes with confidence>0.75, and set the
     robot's box as a reference, then calculate the ymin threshold for armor's boxes, as all armor should be at the bottom half of 
@@ -103,9 +108,6 @@ def get_valid_prediction(boxes: np.ndarray, scores: np.ndarray, labels: np.ndarr
     valid_scores: list
     valid_labels: list
     '''
-    boxes = boxes[scores > threshold]
-    labels = labels[scores > threshold]
-    scores = scores[scores > threshold]
     
     robot_boxes = boxes[np.logical_or(labels==1, labels==3)]
     robot_labels = labels[np.logical_or(labels==1, labels==3)]
@@ -157,6 +159,14 @@ def make_prediction(model, image):
     prediction = model(image.unsqueeze(0).to(device))
     return prediction, np_image
 
+def run_wbf(prediction, image_max_size, weights=None, iou_thr=0.55, skip_box_thr=0.75):
+    boxes = [((prediction[0]['boxes'].clip(min=0, max=image_max_size - 1)/(image_max_size - 1))).tolist()]
+    scores = [prediction[0]['scores'].tolist()]
+    labels = [prediction[0]['labels'].tolist()]
 
+    boxes, scores, labels = weighted_boxes_fusion(boxes, scores, labels, weights=weights, iou_thr=iou_thr, skip_box_thr=skip_box_thr)
+    boxes = ((boxes * (image_max_size - 1)).clip(min=0, max=image_max_size-1)).astype(np.int32)
+
+    return boxes, scores, labels
 
 
