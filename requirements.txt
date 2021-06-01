@@ -1,10 +1,11 @@
 --find-links https://download.pytorch.org/whl/torch_stable.html
 torch
 torchvision
-albumentations
+albumentations==0.4.6
 ensemble-boxes
 numpy
 matplotlib
+sklearn
 pandas
 Pillow
 opencv-python
