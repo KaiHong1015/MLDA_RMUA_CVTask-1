@@ -5,7 +5,7 @@ albumentations==0.4.6
 ensemble-boxes
 numpy
 matplotlib
-sklearn
+scikit-learn
 pandas
 Pillow
 opencv-python
