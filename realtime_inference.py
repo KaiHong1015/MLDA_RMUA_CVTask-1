@@ -7,7 +7,6 @@ import time
 cap = cv2.VideoCapture('data/Ally/left/left_cam.avi') ## Your Video Path
 dms = np.load('video_frames_images/ally_depth_mm.npy') ## Your Related Video DepthMap Path in .npy format
 isleft = True ## Is it doing on left camera data?
-
 model = get_model(weight_path='weight/fold1_resnet50_fpn_BestModel.pth') ## Your weight path
 
 for i in count():
